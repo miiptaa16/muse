@@ -288,7 +288,7 @@ nav.wrap {
   padding: 60px 0 0;
   position: relative;
   overflow: hidden;
-  background: var(--white);
+  background: linear-gradient(160deg, #ffffff 0%, #fdf4ec 55%, #f5f7ff 100%);
 }
 
 .hero::before {
@@ -317,7 +317,7 @@ nav.wrap {
   font-weight: 800;
   font-size: 58px;
   line-height: 1.1;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.03em;
   color: var(--navy);
   margin-bottom: 24px;
   max-width: 620px;
@@ -349,16 +349,16 @@ nav.wrap {
   position: absolute;
   background: var(--white);
   padding: 14px 14px 44px;
-  box-shadow: 0 18px 36px rgba(42, 53, 130, 0.14);
+  box-shadow: 0 20px 50px rgba(42, 53, 130, 0.18), 0 4px 12px rgba(0,0,0,0.08);
   border-radius: 8px;
   border: 1.5px solid var(--line);
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
 }
 
 .polaroid:hover {
-  transform: translateY(-8px) rotate(0deg) scale(1.04) !important;
+  transform: translateY(-12px) rotate(0deg) scale(1.05) !important;
   z-index: 10 !important;
-  box-shadow: 0 24px 48px rgba(235, 103, 14, 0.25);
+  box-shadow: 0 32px 60px rgba(235, 103, 14, 0.28), 0 8px 20px rgba(0,0,0,0.1);
   border-color: var(--orange);
 }
 
@@ -367,7 +367,8 @@ nav.wrap {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: 6px;
+  filter: brightness(0.97) saturate(1.05);
 }
 
 .polaroid figcaption {
@@ -449,6 +450,7 @@ nav.wrap {
 
 @media (prefers-reduced-motion: reduce) {
   .marquee-track { animation: none; }
+  .ambient-blob,
   .hero-blob { animation: none; }
 }
 
@@ -464,85 +466,144 @@ nav.wrap {
   height: 100%;
 }
 
+/* ---------- AMBIENT BACKGROUND BLUR BLOBS ---------- */
+.ambient-blob,
 .hero-blob {
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
   z-index: 0;
-  filter: blur(90px);
+  filter: blur(100px);
+  will-change: transform;
 }
 
-/* Oranye blob — pojok kanan atas, jauh dari teks headline */
+/* Float Animations */
+@keyframes floatSlowA {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-15px, -20px) scale(1.06); }
+}
+
+@keyframes floatSlowB {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(18px, 15px) scale(1.05); }
+}
+
+@keyframes floatSlowC {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-12px, 18px) scale(1.04); }
+}
+
+/* Hero Section Blobs */
 .hero-blob-orange {
-  width: 420px;
-  height: 420px;
+  width: 440px;
+  height: 440px;
   top: -80px;
   right: -60px;
   background: radial-gradient(circle, rgba(235, 103, 14, 0.22) 0%, transparent 70%);
-  animation: blobFloatA 8s ease-in-out infinite;
+  animation: floatSlowA 9s ease-in-out infinite;
 }
 
-/* Navy blob — pojok kiri bawah, di luar area headline */
 .hero-blob-navy {
-  width: 360px;
-  height: 360px;
+  width: 380px;
+  height: 380px;
   bottom: 20px;
   left: -80px;
   background: radial-gradient(circle, rgba(42, 53, 130, 0.18) 0%, transparent 70%);
-  animation: blobFloatB 10s ease-in-out infinite;
+  animation: floatSlowB 11s ease-in-out infinite;
 }
 
-@keyframes blobFloatA {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-20px) scale(1.05); }
+/* About Section (Cerita Kami & Keunggulan Muse) Blobs */
+.about-blob-1 {
+  width: 440px;
+  height: 440px;
+  top: 30px;
+  right: -90px;
+  background: radial-gradient(circle, rgba(235, 103, 14, 0.20) 0%, transparent 70%);
+  animation: floatSlowA 10s ease-in-out infinite;
 }
 
-@keyframes blobFloatB {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(18px) scale(1.04); }
+.about-blob-2 {
+  width: 480px;
+  height: 480px;
+  top: 45%;
+  left: -120px;
+  background: radial-gradient(circle, rgba(42, 53, 130, 0.18) 0%, transparent 70%);
+  animation: floatSlowB 12s ease-in-out infinite;
 }
 
-/* Blob dekoratif untuk #about */
-.about-blob {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-  filter: blur(100px);
-}
-
-.about-blob-orange {
-  width: 380px;
-  height: 380px;
-  top: -60px;
+.about-blob-3 {
+  width: 400px;
+  height: 400px;
+  bottom: 40px;
   right: -80px;
   background: radial-gradient(circle, rgba(235, 103, 14, 0.18) 0%, transparent 70%);
-  animation: blobFloatA 9s ease-in-out infinite;
+  animation: floatSlowC 11s ease-in-out infinite;
 }
 
-/* Blob dekoratif untuk #contact */
-.contact-blob {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-  filter: blur(100px);
+/* Services Section (Navy Dark Section) - Vibrant Accent Blobs */
+.services-blob-1 {
+  width: 460px;
+  height: 460px;
+  top: -60px;
+  right: -70px;
+  background: radial-gradient(circle, rgba(235, 103, 14, 0.28) 0%, transparent 70%);
+  animation: floatSlowA 9s ease-in-out infinite;
 }
 
-.contact-blob-navy {
-  width: 340px;
-  height: 340px;
-  bottom: -40px;
-  right: -60px;
+.services-blob-2 {
+  width: 500px;
+  height: 500px;
+  bottom: -70px;
+  left: -90px;
+  background: radial-gradient(circle, rgba(82, 102, 235, 0.30) 0%, transparent 70%);
+  animation: floatSlowB 11s ease-in-out infinite;
+}
+
+/* Contact Section Blobs */
+.contact-blob-1 {
+  width: 420px;
+  height: 420px;
+  top: -50px;
+  left: -80px;
+  background: radial-gradient(circle, rgba(235, 103, 14, 0.20) 0%, transparent 70%);
+  animation: floatSlowA 10s ease-in-out infinite;
+}
+
+.contact-blob-2 {
+  width: 440px;
+  height: 440px;
+  bottom: -60px;
+  right: -90px;
   background: radial-gradient(circle, rgba(42, 53, 130, 0.20) 0%, transparent 70%);
-  animation: blobFloatB 11s ease-in-out infinite;
+  animation: floatSlowB 12s ease-in-out infinite;
+}
+
+/* Footer Blobs */
+.footer-blob-1 {
+  width: 400px;
+  height: 400px;
+  top: -60px;
+  left: -70px;
+  background: radial-gradient(circle, rgba(235, 103, 14, 0.24) 0%, transparent 70%);
+  animation: floatSlowA 9s ease-in-out infinite;
+}
+
+.footer-blob-2 {
+  width: 420px;
+  height: 420px;
+  bottom: -50px;
+  right: -80px;
+  background: radial-gradient(circle, rgba(82, 102, 235, 0.24) 0%, transparent 70%);
+  animation: floatSlowB 11s ease-in-out infinite;
 }
 
 /* ---------- SECTION SHARED ---------- */
 section {
+  width: 100%;
   padding: 104px 0;
   scroll-margin-top: 100px;
   position: relative;
+  overflow: hidden;
 }
 
 section h2 {
@@ -653,7 +714,7 @@ nav.wrap {
 #about {
   padding-top: 100px;
   padding-bottom: 100px;
-  background: var(--white);
+  background: linear-gradient(175deg, #ffffff 0%, #f8f9fc 60%, #fdf4ec 100%);
   position: relative;
   overflow: hidden;
 }
@@ -793,18 +854,18 @@ nav.wrap {
 }
 
 .advantage-card {
-  background: var(--white);
+  background: #ffffff;
   border: 1.5px solid var(--line);
-  border-radius: 18px;
+  border-radius: 20px;
   padding: 38px 32px;
   text-align: center;
-  box-shadow: 0 10px 24px rgba(42, 53, 130, 0.06);
+  box-shadow: 0 8px 32px rgba(42, 53, 130, 0.09), 0 2px 8px rgba(0,0,0,0.04);
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .advantage-card:hover {
-  transform: translateY(-8px) scale(1.01);
-  box-shadow: 0 20px 40px rgba(235, 103, 14, 0.16);
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 24px 50px rgba(235, 103, 14, 0.18), 0 4px 16px rgba(42,53,130,0.08);
   border-color: var(--orange);
 }
 
@@ -891,20 +952,20 @@ nav.wrap {
 }
 
 .service-card {
-  background: var(--white);
+  background: #ffffff;
   border: 1.5px solid var(--line);
   border-left: 4px solid var(--orange);
-  border-radius: 18px;
+  border-radius: 20px;
   padding: 42px 30px;
   text-align: center;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.10), 0 2px 8px rgba(42,53,130,0.06);
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .service-card:hover {
-  transform: translateY(-8px) scale(1.02);
+  transform: translateY(-10px) scale(1.02);
   border-color: var(--orange);
-  box-shadow: 0 20px 40px rgba(235, 103, 14, 0.3);
+  box-shadow: 0 24px 52px rgba(235, 103, 14, 0.28), 0 4px 16px rgba(0,0,0,0.08);
 }
 
 .service-icon {
@@ -948,7 +1009,7 @@ nav.wrap {
   text-align: center;
   position: relative;
   overflow: hidden;
-  background: var(--white);
+  background: linear-gradient(170deg, #f5f7ff 0%, #ffffff 50%, #fdf4ec 100%);
 }
 
 #contact::before {
@@ -993,18 +1054,18 @@ nav.wrap {
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  background: var(--white);
+  background: #ffffff;
   border: 1.5px solid var(--line);
   border-top: 4px solid var(--orange);
-  border-radius: 18px;
+  border-radius: 20px;
   padding: 40px 24px;
-  box-shadow: 0 10px 24px rgba(42, 53, 130, 0.06);
+  box-shadow: 0 8px 32px rgba(42, 53, 130, 0.09), 0 2px 8px rgba(0,0,0,0.04);
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .channel-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(235, 103, 14, 0.2);
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 24px 50px rgba(235, 103, 14, 0.20), 0 4px 16px rgba(42,53,130,0.08);
   border-color: var(--orange);
 }
 
@@ -1231,6 +1292,55 @@ footer::before {
   z-index: 1;
 }
 
+
+/* ========================================================
+   PREMIUM POLISH: Depth, Micro-interactions, Dividers
+   ======================================================== */
+
+/* ---------- GLOBAL HEADING LETTER-SPACING ---------- */
+h2 {
+  letter-spacing: -0.025em;
+}
+h3 {
+  letter-spacing: -0.02em;
+}
+h4 {
+  letter-spacing: -0.01em;
+}
+
+/* ---------- STORY CARDS: deeper shadow ---------- */
+.story-card {
+  box-shadow: 0 8px 32px rgba(42, 53, 130, 0.09), 0 2px 8px rgba(0,0,0,0.04) !important;
+}
+.story-card:hover {
+  box-shadow: 0 24px 50px rgba(235, 103, 14, 0.18), 0 4px 16px rgba(42,53,130,0.08) !important;
+}
+
+/* ---------- BUTTON: active press + glow ---------- */
+.btn:active {
+  transform: translateY(0px) scale(0.98);
+  box-shadow: 0 4px 12px rgba(235, 103, 14, 0.35);
+  transition-duration: 0.1s;
+}
+.btn.outline:active {
+  transform: translateY(0px) scale(0.98);
+  transition-duration: 0.1s;
+}
+
+/* ---------- SECTION SPACING POLISH ---------- */
+.advantages-intro {
+  padding-top: 8px;
+}
+
+.services-head .section-label {
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.contact-head {
+  margin-bottom: 6px;
+}
+
 /* ---------- RESPONSIVE STYLING ---------- */
 @media (max-width: 900px) {
   .wrap { padding: 0 24px; }
@@ -1302,5 +1412,5 @@ footer::before {
   .footer-col a::before { display: none; }
   .footer-bottom { flex-direction: column; align-items: flex-start; }
   .deco { display: none; }
-  .hero-blob, .about-blob, .contact-blob { display: none; }
+  .ambient-blob, .hero-blob { display: none; }
 }
