@@ -1,0 +1,9 @@
+{
+  "name": "muse-project",
+  "version": "1.0.0",
+  "description": "Muse \u2014 Agensi Digital for Thrift di Makassar",
+  "scripts": {
+    "dev": "npx serve -l 3000 .",
+    "start": "npx serve -l 3000 ."
+  }
+}
